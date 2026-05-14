@@ -38,6 +38,14 @@ Claude Code environments have grown as complex as Kubernetes clusters, yet there
 ## Installation
 
 ```bash
+pip install agentscore-cli
+```
+
+**Requirements:** Python 3.11+, Claude Code installed
+
+Or install from source:
+
+```bash
 git clone https://github.com/calintzy/agentscore
 cd agentscore
 pip install -e .

@@ -38,12 +38,18 @@ Claude Code 环境已变得像 Kubernetes 集群一样复杂，但缺少类似 `
 ## 安装
 
 ```bash
+pip install agentscore-cli
+```
+
+**要求：** Python 3.11+，已安装 Claude Code
+
+从源码安装：
+
+```bash
 git clone https://github.com/calintzy/agentscore
 cd agentscore
 pip install -e .
 ```
-
-**要求：** Python 3.11+，已安装 Claude Code
 
 ## 使用方法
 
