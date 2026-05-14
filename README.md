@@ -2,6 +2,7 @@
 
 > **Lighthouse for AI agent development environments**
 
+[![PyPI](https://img.shields.io/pypi/v/agentscore-cli?color=blue)](https://pypi.org/project/agentscore-cli/)
 [![Python](https://img.shields.io/badge/python-3.11%2B-blue?logo=python&logoColor=white)](https://www.python.org)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 [![GitHub stars](https://img.shields.io/github/stars/calintzy/agentscore?style=flat)](https://github.com/calintzy/agentscore/stargazers)
@@ -14,14 +15,17 @@ A CLI tool that analyzes Claude Code users' MCP servers, plugins, and skill envi
 ```
 $ agentscore
 
-  Grade A  82.0pts  Profile: backend
+  Context Efficiency  ██████████░░░░░░  17.0/25
+  Coverage            ████████████████  20.0/20  ✓
+  Conflict Detection  ████████████░░░░  16.0/20
+  Config Quality      ████████████████  15.0/15  ✓
+  Security            ████████████░░░░   8.0/10
+  Freshness           ████████████████  10.0/10  ✓
 
- Context Efficiency   17.0  /25  ████████░░░░
- Coverage             20.0  /20  ████████████
- Conflict Detection   12.0  /20  ███████░░░░░
- Config Quality       15.0  /15  ████████████
- Security              8.0  /10  █████████░░░
- Freshness            10.0  /10  ████████████
+  Quick Wins ──────────────────────────────────────────────
+  1.  plugin-a · plugin-b are high context-cost (🔴). Disable when not in use.
+  2.  tool-x · tool-y · tool-z all provide qa. Pick one and remove the rest.
+  3.  Review permissions.allow in settings.local.json — restrict to what you need.
 ```
 
 ## Why agentscore?
@@ -50,8 +54,6 @@ git clone https://github.com/calintzy/agentscore
 cd agentscore
 pip install -e .
 ```
-
-**Requirements:** Python 3.11+, Claude Code installed
 
 ## Usage
 

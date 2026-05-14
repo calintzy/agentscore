@@ -2,6 +2,7 @@
 
 > **Lighthouse for AI agent development environments**
 
+[![PyPI](https://img.shields.io/pypi/v/agentscore-cli?color=blue)](https://pypi.org/project/agentscore-cli/)
 [![Python](https://img.shields.io/badge/python-3.11%2B-blue?logo=python&logoColor=white)](https://www.python.org)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 [![GitHub stars](https://img.shields.io/github/stars/calintzy/agentscore?style=flat)](https://github.com/calintzy/agentscore/stargazers)
@@ -14,14 +15,17 @@ Claude Code 사용자의 MCP 서버, 플러그인, 스킬 환경을 분석해 �
 ```
 $ agentscore
 
-  A등급  82.0점  프로필: backend
+  Context Efficiency  ██████████░░░░░░  17.0/25
+  Coverage            ████████████████  20.0/20  ✓
+  Conflict Detection  ████████████░░░░  16.0/20
+  Config Quality      ████████████████  15.0/15  ✓
+  Security            ████████████░░░░   8.0/10
+  Freshness           ████████████████  10.0/10  ✓
 
- Context Efficiency   17.0  /25  ████████░░░░
- Coverage             20.0  /20  ████████████
- Conflict Detection   12.0  /20  ███████░░░░░
- Config Quality       15.0  /15  ████████████
- Security              8.0  /10  █████████░░░
- Freshness            10.0  /10  ████████████
+  빠른 개선 ──────────────────────────────────────────────
+  1.  plugin-a · plugin-b이(가) 고비용(🔴) 도구입니다. 사용하지 않을 때 비활성화하세요.
+  2.  tool-x · tool-y · tool-z이(가) 모두 qa 기능을 제공합니다. 하나만 남기세요.
+  3.  settings.local.json의 permissions.allow를 검토해 꼭 필요한 권한만 허용하세요.
 ```
 
 ## 왜 필요한가
@@ -43,7 +47,7 @@ pip install agentscore-cli
 
 **요구사항:** Python 3.11+, Claude Code 설치됨
 
-소스에서 설치:
+소스에서 직접 설치:
 
 ```bash
 git clone https://github.com/calintzy/agentscore

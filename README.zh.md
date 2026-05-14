@@ -2,6 +2,7 @@
 
 > **AI 代理开发环境的灯塔**
 
+[![PyPI](https://img.shields.io/pypi/v/agentscore-cli?color=blue)](https://pypi.org/project/agentscore-cli/)
 [![Python](https://img.shields.io/badge/python-3.11%2B-blue?logo=python&logoColor=white)](https://www.python.org)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 [![GitHub stars](https://img.shields.io/github/stars/calintzy/agentscore?style=flat)](https://github.com/calintzy/agentscore/stargazers)
@@ -14,14 +15,17 @@
 ```
 $ agentscore
 
-  A 级  82.0分  配置文件: backend
+  Context Efficiency  ██████████░░░░░░  17.0/25
+  Coverage            ████████████████  20.0/20  ✓
+  Conflict Detection  ████████████░░░░  16.0/20
+  Config Quality      ████████████████  15.0/15  ✓
+  Security            ████████████░░░░   8.0/10
+  Freshness           ████████████████  10.0/10  ✓
 
- Context Efficiency   17.0  /25  ████████░░░░
- Coverage             20.0  /20  ████████████
- Conflict Detection   12.0  /20  ███████░░░░░
- Config Quality       15.0  /15  ████████████
- Security              8.0  /10  █████████░░░
- Freshness            10.0  /10  ████████████
+  快速优化 ──────────────────────────────────────────────
+  1.  plugin-a · plugin-b 是高成本(🔴)工具。不使用时请禁用。
+  2.  tool-x · tool-y · tool-z 均提供 qa 功能。建议只保留一个。
+  3.  请检查 settings.local.json 中的 permissions.allow，仅保留必要权限。
 ```
 
 ## 为什么需要 agentscore？
