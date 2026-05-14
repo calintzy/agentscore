@@ -51,6 +51,30 @@ DIMENSION_MAX = {
 BAR_WIDTH = 16
 
 
+def _generate_tips(result: ScanResult) -> list[str]:
+    tip_map = {
+        "context_efficiency": t("tip_context_efficiency"),
+        "coverage":           t("tip_coverage"),
+        "conflict":           t("tip_conflict"),
+        "config_quality":     t("tip_config_quality"),
+        "security":           t("tip_security"),
+        "freshness":          t("tip_freshness"),
+    }
+    ranked = sorted(
+        DIMENSION_MAX.keys(),
+        key=lambda d: result.scores.get(d, 0.0) / DIMENSION_MAX[d],
+    )
+    tips = []
+    for dim in ranked:
+        ratio = result.scores.get(dim, 0.0) / DIMENSION_MAX[dim]
+        if ratio >= 0.85:
+            continue
+        tips.append(tip_map[dim])
+        if len(tips) == 3:
+            break
+    return tips
+
+
 def _bar(score: float, max_score: float) -> str:
     filled = int((score / max_score) * BAR_WIDTH) if max_score else 0
     return "█" * filled + "░" * (BAR_WIDTH - filled)
@@ -122,6 +146,13 @@ def print_score_result(result: ScanResult, *, no_color: bool = False) -> None:
             console.print(f"  {icon}  [dim]{issue.dimension}[/dim]  {issue.message}", highlight=False)
             if issue.recommendation:
                 console.print(f"       [dim]→ {issue.recommendation}[/dim]", highlight=False)
+        console.print()
+
+    tips = _generate_tips(result)
+    if tips:
+        console.print(Rule(t("terminal_tips"), style="dim", align="left"))
+        for i, tip in enumerate(tips, 1):
+            console.print(f"  [cyan]{i}.[/cyan]  {tip}", highlight=False)
         console.print()
 
 

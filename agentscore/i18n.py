@@ -48,6 +48,14 @@ _MESSAGES: dict[str, dict[str, str]] = {
         "issue_config_rec": "Create ~/.claude/CLAUDE.md and set model explicitly",
         "issue_freshness": "Some tools have outdated updates",
         "issue_freshness_rec": "Update plugins to the latest version",
+        # Tips
+        "terminal_tips": "Quick Wins",
+        "tip_context_efficiency": "High-cost tools with low ROI drag your score. Disable or remove tools you rarely use.",
+        "tip_coverage": "Your profile is missing tools for key categories. Add a git, QA, or planning tool.",
+        "tip_conflict": "Overlapping tools waste context. Keep one tool per capability and remove duplicates.",
+        "tip_config_quality": "Create ~/.claude/CLAUDE.md to describe your project, and set \"model\" explicitly in settings.json.",
+        "tip_security": "Review permissions.allow in settings.local.json — restrict to only what you actually need.",
+        "tip_freshness": "Update your plugins to the latest versions for better compatibility and features.",
     },
     "ko": {
         "cli_help": "AI 개발 환경 품질 분석 도구.",
@@ -85,6 +93,13 @@ _MESSAGES: dict[str, dict[str, str]] = {
         "issue_config_rec": "~/.claude/CLAUDE.md를 작성하고 model을 명시적으로 설정하세요",
         "issue_freshness": "업데이트가 오래된 도구가 있음",
         "issue_freshness_rec": "플러그인을 최신 버전으로 업데이트하세요",
+        "terminal_tips": "빠른 개선",
+        "tip_context_efficiency": "ROI가 낮은 고비용 도구가 점수를 낮춥니다. 거의 사용하지 않는 도구를 비활성화하거나 제거하세요.",
+        "tip_coverage": "필수 카테고리 도구가 부족합니다. git, QA, planning 도구를 추가하세요.",
+        "tip_conflict": "기능이 겹치는 도구는 컨텍스트를 낭비합니다. 카테고리별로 하나씩만 유지하세요.",
+        "tip_config_quality": "~/.claude/CLAUDE.md에 프로젝트 설명을 작성하고 settings.json에 \"model\"을 명시하세요.",
+        "tip_security": "settings.local.json의 permissions.allow를 검토해 꼭 필요한 권한만 허용하세요.",
+        "tip_freshness": "플러그인을 최신 버전으로 업데이트하면 호환성과 기능이 향상됩니다.",
     },
     "zh": {
         "cli_help": "AI 开发环境质量分析工具。",
@@ -122,6 +137,13 @@ _MESSAGES: dict[str, dict[str, str]] = {
         "issue_config_rec": "请创建 ~/.claude/CLAUDE.md 并明确设置 model",
         "issue_freshness": "存在长时间未更新的工具",
         "issue_freshness_rec": "请将插件更新至最新版本",
+        "terminal_tips": "快速优化",
+        "tip_context_efficiency": "ROI 低的高成本工具会拉低评分。请禁用或移除很少使用的工具。",
+        "tip_coverage": "配置文件缺少关键类别工具。请添加 git、QA 或规划类工具。",
+        "tip_conflict": "功能重叠的工具会浪费上下文。每个类别只保留一个工具。",
+        "tip_config_quality": "请创建 ~/.claude/CLAUDE.md 描述项目，并在 settings.json 中明确设置 \"model\"。",
+        "tip_security": "请检查 settings.local.json 中的 permissions.allow，仅保留必要权限。",
+        "tip_freshness": "将插件更新至最新版本可提升兼容性和功能。",
     },
 }
 
