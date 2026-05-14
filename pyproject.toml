@@ -7,12 +7,27 @@ name = "agentscore"
 version = "0.1.0"
 description = "Lighthouse for AI agent development environments"
 readme = "README.md"
+license = { text = "MIT" }
 requires-python = ">=3.11"
+keywords = ["claude", "mcp", "ai", "developer-tools", "cli"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Quality Assurance",
+]
 dependencies = [
     "click>=8.1",
     "rich>=13.0",
     "httpx>=0.27",
 ]
+
+[project.urls]
+Homepage = "https://github.com/yourusername/agentscore"
+Issues = "https://github.com/yourusername/agentscore/issues"
 
 [project.scripts]
 agentscore = "agentscore.cli:cli"

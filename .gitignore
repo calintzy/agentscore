@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
+*.egg
+
+# Node
+node_modules/
+.next/
+*.log
+
+# 환경변수
+.env
+.env.local
+.env*.local
+
+# IDE
+.idea/
+.vscode/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# 테스트 결과
+.coverage
+htmlcov/
+.pytest_cache/
+results/
+
+# AI 도구 상태 디렉토리 (로컬 전용)
+.bkit/
+.omc/
+CLAUDE.md

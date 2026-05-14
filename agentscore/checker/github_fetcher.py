@@ -4,11 +4,21 @@ import re
 from dataclasses import dataclass, field
 from typing import Optional
 
+import os
+
 import httpx
 
 GITHUB_API = "https://api.github.com"
 RAW_BASE = "https://raw.githubusercontent.com"
 TIMEOUT = 15.0
+
+
+def _make_headers() -> dict[str, str]:
+    headers = {"Accept": "application/vnd.github+json"}
+    token = os.environ.get("GITHUB_TOKEN")
+    if token:
+        headers["Authorization"] = f"Bearer {token}"
+    return headers
 
 
 @dataclass
@@ -44,7 +54,7 @@ def parse_github_url(url: str) -> tuple[str, str]:
 def fetch_repo_info(url: str) -> RepoInfo:
     owner, repo = parse_github_url(url)
 
-    with httpx.Client(timeout=TIMEOUT, headers={"Accept": "application/vnd.github+json"}) as client:
+    with httpx.Client(timeout=TIMEOUT, headers=_make_headers()) as client:
         resp = client.get(f"{GITHUB_API}/repos/{owner}/{repo}")
         resp.raise_for_status()
         data = resp.json()
