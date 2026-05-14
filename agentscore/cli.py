@@ -6,6 +6,20 @@ from datetime import datetime, timezone
 
 import click
 
+_INTERACTIVE = "__interactive__"
+
+def _patch_argv_profile() -> None:
+    """--profile 뒤에 값이 없으면 인터랙티브 sentinel 삽입."""
+    for i, arg in enumerate(sys.argv):
+        if arg == "--profile":
+            is_last = i == len(sys.argv) - 1
+            next_is_flag = (not is_last) and sys.argv[i + 1].startswith("-")
+            if is_last or next_is_flag:
+                sys.argv.insert(i + 1, _INTERACTIVE)
+            break
+
+_patch_argv_profile()
+
 from agentscore import __version__
 from agentscore.evaluator.config_quality import evaluate_config_quality
 from agentscore.evaluator.conflict import detect_conflicts, evaluate_conflict
@@ -137,7 +151,18 @@ def cli(ctx: click.Context, profile_role: str | None, output_json: bool, no_colo
     tools = scan_tools(env)
     env.installed_tools = tools
 
-    if profile_role:
+    if profile_role == _INTERACTIVE:
+        click.echo(t("setup_select_role"))
+        roles = sorted(VALID_ROLES - {"generic"})
+        for i, r in enumerate(roles, 1):
+            click.echo(f"  {i}. {r}")
+        choice = click.prompt(t("setup_prompt"), type=click.IntRange(1, len(roles)))
+        profile_role = roles[choice - 1]
+        profile = make_profile(profile_role, tier=1)
+        save_config(profile)
+        click.echo(t("setup_saved", role=profile_role))
+        click.echo()
+    elif profile_role:
         profile = make_profile(profile_role, tier=1)
     else:
         saved = load_config()
