@@ -11,8 +11,11 @@ def evaluate_conflict(env: EnvSnapshot, profile: Profile) -> float:
 
 
 def detect_conflicts(installed_tools: list[Tool]) -> list[Conflict]:
+    # multi-tool은 넓은 기능을 포괄하는 게 설계 의도 — 전문 도구 간 충돌만 체크
+    specialized = [t for t in installed_tools if t.category != "multi-tool"]
+
     capability_map: dict[str, list[Tool]] = {}
-    for tool in installed_tools:
+    for tool in specialized:
         for cap in tool.provides:
             capability_map.setdefault(cap, []).append(tool)
 
