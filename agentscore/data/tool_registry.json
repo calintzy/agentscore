@@ -1,0 +1,278 @@
+{
+  "version": "1.0",
+  "tools": {
+    "oh-my-claudecode@omc": {
+      "id": "oh-my-claudecode@omc",
+      "display_name": "oh-my-claudecode",
+      "category": "multi-tool",
+      "context_cost": "high",
+      "profile_fit": ["backend", "frontend", "fullstack", "ml", "devops"],
+      "provides": ["planning", "git", "qa", "frontend", "debugging"]
+    },
+    "bkit@bkit-marketplace": {
+      "id": "bkit@bkit-marketplace",
+      "display_name": "bkit",
+      "category": "multi-tool",
+      "context_cost": "high",
+      "profile_fit": ["backend", "frontend", "fullstack", "ml", "devops"],
+      "provides": ["planning", "qa", "git", "frontend", "architecture"]
+    },
+    "ouroboros@ouroboros": {
+      "id": "ouroboros@ouroboros",
+      "display_name": "ouroboros",
+      "category": "planning",
+      "context_cost": "medium",
+      "profile_fit": ["backend", "frontend", "fullstack", "ml", "devops"],
+      "provides": ["planning"],
+      "mcp_id": "ouroboros"
+    },
+    "agent-council@team-attention-plugins": {
+      "id": "agent-council@team-attention-plugins",
+      "display_name": "agent-council",
+      "category": "planning",
+      "context_cost": "low",
+      "profile_fit": ["backend", "frontend", "fullstack", "ml", "devops"],
+      "provides": ["planning"]
+    },
+    "context7": {
+      "id": "context7",
+      "display_name": "context7",
+      "category": "documentation",
+      "context_cost": "low",
+      "profile_fit": ["backend", "frontend", "fullstack", "ml", "devops"],
+      "provides": ["documentation"]
+    },
+    "supabase@claude-plugins-official": {
+      "id": "supabase@claude-plugins-official",
+      "display_name": "Supabase MCP",
+      "category": "database",
+      "context_cost": "medium",
+      "profile_fit": ["backend", "fullstack"],
+      "provides": ["database"]
+    },
+    "filesystem": {
+      "id": "filesystem",
+      "display_name": "Filesystem MCP",
+      "category": "backend",
+      "context_cost": "low",
+      "profile_fit": ["backend", "frontend", "fullstack", "ml", "devops"],
+      "provides": ["backend"]
+    },
+    "github": {
+      "id": "github",
+      "display_name": "GitHub MCP",
+      "category": "git",
+      "context_cost": "medium",
+      "profile_fit": ["backend", "frontend", "fullstack", "ml", "devops"],
+      "provides": ["git"]
+    },
+    "git": {
+      "id": "git",
+      "display_name": "Git MCP",
+      "category": "git",
+      "context_cost": "low",
+      "profile_fit": ["backend", "frontend", "fullstack", "ml", "devops"],
+      "provides": ["git"]
+    },
+    "sequential-thinking": {
+      "id": "sequential-thinking",
+      "display_name": "Sequential Thinking MCP",
+      "category": "planning",
+      "context_cost": "low",
+      "profile_fit": ["backend", "frontend", "fullstack", "ml", "devops"],
+      "provides": ["planning"]
+    },
+    "memory": {
+      "id": "memory",
+      "display_name": "Memory MCP",
+      "category": "memory",
+      "context_cost": "medium",
+      "profile_fit": ["backend", "frontend", "fullstack", "ml", "devops"],
+      "provides": ["memory"]
+    },
+    "postgres": {
+      "id": "postgres",
+      "display_name": "PostgreSQL MCP",
+      "category": "database",
+      "context_cost": "medium",
+      "profile_fit": ["backend", "fullstack", "ml"],
+      "provides": ["database"]
+    },
+    "sqlite": {
+      "id": "sqlite",
+      "display_name": "SQLite MCP",
+      "category": "database",
+      "context_cost": "low",
+      "profile_fit": ["backend", "fullstack", "ml"],
+      "provides": ["database"]
+    },
+    "redis": {
+      "id": "redis",
+      "display_name": "Redis MCP",
+      "category": "database",
+      "context_cost": "low",
+      "profile_fit": ["backend", "fullstack"],
+      "provides": ["database", "memory"]
+    },
+    "mongodb": {
+      "id": "mongodb",
+      "display_name": "MongoDB MCP",
+      "category": "database",
+      "context_cost": "medium",
+      "profile_fit": ["backend", "fullstack"],
+      "provides": ["database"]
+    },
+    "puppeteer": {
+      "id": "puppeteer",
+      "display_name": "Puppeteer MCP",
+      "category": "qa",
+      "context_cost": "medium",
+      "profile_fit": ["frontend", "fullstack", "qa"],
+      "provides": ["qa", "frontend"]
+    },
+    "playwright": {
+      "id": "playwright",
+      "display_name": "Playwright MCP",
+      "category": "qa",
+      "context_cost": "medium",
+      "profile_fit": ["frontend", "fullstack"],
+      "provides": ["qa", "frontend"]
+    },
+    "brave-search": {
+      "id": "brave-search",
+      "display_name": "Brave Search MCP",
+      "category": "documentation",
+      "context_cost": "low",
+      "profile_fit": ["backend", "frontend", "fullstack", "ml", "devops"],
+      "provides": ["documentation"]
+    },
+    "sentry": {
+      "id": "sentry",
+      "display_name": "Sentry MCP",
+      "category": "debugging",
+      "context_cost": "low",
+      "profile_fit": ["backend", "frontend", "fullstack"],
+      "provides": ["debugging"]
+    },
+    "linear": {
+      "id": "linear",
+      "display_name": "Linear MCP",
+      "category": "planning",
+      "context_cost": "low",
+      "profile_fit": ["backend", "frontend", "fullstack", "ml", "devops"],
+      "provides": ["planning"]
+    },
+    "notion": {
+      "id": "notion",
+      "display_name": "Notion MCP",
+      "category": "documentation",
+      "context_cost": "low",
+      "profile_fit": ["backend", "frontend", "fullstack", "ml", "devops"],
+      "provides": ["documentation"]
+    },
+    "slack": {
+      "id": "slack",
+      "display_name": "Slack MCP",
+      "category": "documentation",
+      "context_cost": "low",
+      "profile_fit": ["backend", "frontend", "fullstack", "ml", "devops"],
+      "provides": ["documentation"]
+    },
+    "aws": {
+      "id": "aws",
+      "display_name": "AWS MCP",
+      "category": "infra",
+      "context_cost": "medium",
+      "profile_fit": ["backend", "fullstack", "devops"],
+      "provides": ["infra"]
+    },
+    "docker": {
+      "id": "docker",
+      "display_name": "Docker MCP",
+      "category": "infra",
+      "context_cost": "low",
+      "profile_fit": ["backend", "fullstack", "devops"],
+      "provides": ["infra"]
+    },
+    "kubernetes": {
+      "id": "kubernetes",
+      "display_name": "Kubernetes MCP",
+      "category": "infra",
+      "context_cost": "medium",
+      "profile_fit": ["devops", "backend"],
+      "provides": ["infra"]
+    },
+    "terraform": {
+      "id": "terraform",
+      "display_name": "Terraform MCP",
+      "category": "infra",
+      "context_cost": "medium",
+      "profile_fit": ["devops"],
+      "provides": ["infra"]
+    },
+    "stripe": {
+      "id": "stripe",
+      "display_name": "Stripe MCP",
+      "category": "backend",
+      "context_cost": "low",
+      "profile_fit": ["backend", "fullstack"],
+      "provides": ["backend"]
+    },
+    "sendgrid": {
+      "id": "sendgrid",
+      "display_name": "SendGrid MCP",
+      "category": "backend",
+      "context_cost": "low",
+      "profile_fit": ["backend", "fullstack"],
+      "provides": ["backend"]
+    },
+    "jupyter": {
+      "id": "jupyter",
+      "display_name": "Jupyter MCP",
+      "category": "data",
+      "context_cost": "medium",
+      "profile_fit": ["ml"],
+      "provides": ["data"]
+    },
+    "huggingface": {
+      "id": "huggingface",
+      "display_name": "Hugging Face MCP",
+      "category": "data",
+      "context_cost": "medium",
+      "profile_fit": ["ml"],
+      "provides": ["data"]
+    },
+    "datadog": {
+      "id": "datadog",
+      "display_name": "Datadog MCP",
+      "category": "debugging",
+      "context_cost": "low",
+      "profile_fit": ["backend", "devops", "fullstack"],
+      "provides": ["debugging", "infra"]
+    },
+    "rust-analyzer-lsp@claude-plugins-official": {
+      "id": "rust-analyzer-lsp@claude-plugins-official",
+      "display_name": "Rust Analyzer LSP",
+      "category": "debugging",
+      "context_cost": "low",
+      "profile_fit": ["backend", "devops"],
+      "provides": ["debugging"]
+    },
+    "mafia-codereview@mafia-codereview-harness": {
+      "id": "mafia-codereview@mafia-codereview-harness",
+      "display_name": "Mafia Code Review",
+      "category": "qa",
+      "context_cost": "medium",
+      "profile_fit": ["backend", "frontend", "fullstack", "ml", "devops"],
+      "provides": ["qa"]
+    },
+    "harness@harness-marketplace": {
+      "id": "harness@harness-marketplace",
+      "display_name": "Harness",
+      "category": "qa",
+      "context_cost": "medium",
+      "profile_fit": ["backend", "frontend", "fullstack", "ml", "devops"],
+      "provides": ["qa"]
+    }
+  }
+}
