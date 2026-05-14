@@ -143,16 +143,16 @@ def print_score_result(result: ScanResult, *, no_color: bool = False) -> None:
         severity_icon = {"error": "[red]✗[/red]", "warning": "[yellow]△[/yellow]", "info": "[dim]ℹ[/dim]"}
         for issue in result.issues[:5]:
             icon = severity_icon.get(issue.severity, "·")
-            console.print(f"  {icon}  [dim]{issue.dimension}[/dim]  {issue.message}", highlight=False)
+            console.print(f"  {icon}  [dim]{issue.dimension}[/dim]  {issue.message}", highlight=False, soft_wrap=True)
             if issue.recommendation:
-                console.print(f"       [dim]→ {issue.recommendation}[/dim]", highlight=False)
+                console.print(f"       [dim]→ {issue.recommendation}[/dim]", highlight=False, soft_wrap=True)
         console.print()
 
     tips = _generate_tips(result)
     if tips:
         console.print(Rule(t("terminal_tips"), style="dim", align="left"))
         for i, tip in enumerate(tips, 1):
-            console.print(f"  [cyan]{i}.[/cyan]  {tip}", highlight=False)
+            console.print(f"  [cyan]{i}.[/cyan]  {tip}", highlight=False, soft_wrap=True)
         console.print()
 
 
