@@ -2,6 +2,11 @@
 
 > **Lighthouse for AI agent development environments**
 
+[![Python](https://img.shields.io/badge/python-3.11%2B-blue?logo=python&logoColor=white)](https://www.python.org)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+[![GitHub stars](https://img.shields.io/github/stars/calintzy/agentscore?style=flat)](https://github.com/calintzy/agentscore/stargazers)
+[![GitHub issues](https://img.shields.io/github/issues/calintzy/agentscore)](https://github.com/calintzy/agentscore/issues)
+
 Claude Code 사용자의 MCP 서버, 플러그인, 스킬 환경을 분석해 점수와 개선 방향을 제시하는 CLI 도구.
 
 ```
