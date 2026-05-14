@@ -8,6 +8,7 @@ from rich.columns import Columns
 from rich.text import Text
 from rich import box
 
+from agentscore.i18n import t
 from agentscore.models import EnvSnapshot, ScanResult, Tool
 
 COST_EMOJI = {"low": "🟢", "medium": "🟡", "high": "🔴"}
@@ -68,16 +69,16 @@ def print_scan_result(env: EnvSnapshot, tools: list[Tool], *, no_color: bool = F
     console = Console(no_color=no_color, highlight=False)
 
     console.print()
-    console.print(Rule("[bold cyan]agentscore[/bold cyan]  AI 개발 환경 분석", style="dim"))
+    console.print(Rule(f"[bold cyan]agentscore[/bold cyan]  {t('terminal_header').split('  ', 1)[-1]}", style="dim"))
     console.print(
         f"  Claude [dim]{env.claude_version}[/dim]   "
-        f"스캔 [dim]{env.scan_timestamp[:19].replace('T', ' ')} UTC[/dim]",
+        f"[dim]{env.scan_timestamp[:19].replace('T', ' ')} UTC[/dim]",
         highlight=False,
     )
     console.print()
 
     if not tools:
-        console.print("  [yellow]설치된 도구를 찾을 수 없습니다.[/yellow]")
+        console.print(f"  [yellow]{t('terminal_no_tools')}[/yellow]")
         return
 
     _print_tools_table(console, tools)
@@ -114,7 +115,7 @@ def print_score_result(result: ScanResult, *, no_color: bool = False) -> None:
     console.print()
 
     if result.issues:
-        console.print(Rule("개선 사항", style="dim", align="left"))
+        console.print(Rule(t("terminal_improvements"), style="dim", align="left"))
         severity_icon = {"error": "[red]✗[/red]", "warning": "[yellow]△[/yellow]", "info": "[dim]ℹ[/dim]"}
         for issue in result.issues[:5]:
             icon = severity_icon.get(issue.severity, "·")
@@ -132,10 +133,10 @@ def _print_tools_table(console: Console, tools: list[Tool]) -> None:
         pad_edge=False,
         show_edge=False,
     )
-    table.add_column("도구", min_width=26)
-    table.add_column("카테고리", min_width=14)
-    table.add_column("비용", justify="center", min_width=8)
-    table.add_column("우선순위", justify="center", min_width=10)
+    table.add_column(t("col_tool"), min_width=26)
+    table.add_column(t("col_category"), min_width=14)
+    table.add_column(t("col_cost"), justify="center", min_width=8)
+    table.add_column(t("col_priority"), justify="center", min_width=10)
     table.add_column("", justify="center", min_width=4)
 
     for tool in tools:
@@ -153,5 +154,5 @@ def _print_tools_table(console: Console, tools: list[Tool]) -> None:
         )
 
     console.print(table)
-    console.print(f"  [dim]총 {len(tools)}개 도구 감지됨[/dim]")
+    console.print(f"  [dim]{t('terminal_tool_count', n=len(tools)).strip()}[/dim]")
     console.print()

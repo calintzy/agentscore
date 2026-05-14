@@ -31,6 +31,7 @@ from agentscore.profile.profiles import VALID_ROLES, make_profile
 from agentscore.reporter.check_reporter import print_check_result
 from agentscore.reporter.history_reporter import print_diff, print_history
 from agentscore.reporter.terminal import print_scan_result, print_score_result
+from agentscore.i18n import t
 from agentscore.scanner.config_reader import read_env_snapshot
 from agentscore.scanner.plugin_scanner import scan_tools
 
@@ -82,40 +83,40 @@ def _generate_issues(env, profile: Profile, scores: dict) -> list[Issue]:
         issues.append(Issue(
             severity="warning",
             dimension="security",
-            message="위험한 권한이 허용됨",
-            recommendation="settings.local.json의 permissions.allow를 검토하세요",
+            message=t("issue_security"),
+            recommendation=t("issue_security_rec"),
         ))
 
     if scores["coverage"] < 10.0 and profile.role != "generic":
         issues.append(Issue(
             severity="warning",
             dimension="coverage",
-            message=f"{profile.role} 프로필에 필수 도구가 부족함",
-            recommendation="필수 카테고리(git, qa 등) 도구를 추가하세요",
+            message=t("issue_coverage", role=profile.role),
+            recommendation=t("issue_coverage_rec"),
         ))
 
     if scores["conflict"] < 16.0:
         issues.append(Issue(
             severity="info",
             dimension="conflict",
-            message="기능 중복 도구가 감지됨",
-            recommendation="동일 기능을 제공하는 도구 중 하나를 제거하세요",
+            message=t("issue_conflict"),
+            recommendation=t("issue_conflict_rec"),
         ))
 
     if scores["config_quality"] < 10.0:
         issues.append(Issue(
             severity="info",
             dimension="config_quality",
-            message="설정 품질 개선 필요",
-            recommendation="~/.claude/CLAUDE.md를 작성하고 model을 명시적으로 설정하세요",
+            message=t("issue_config"),
+            recommendation=t("issue_config_rec"),
         ))
 
     if scores["freshness"] < 7.0:
         issues.append(Issue(
             severity="info",
             dimension="freshness",
-            message="업데이트가 오래된 도구가 있음",
-            recommendation="플러그인을 최신 버전으로 업데이트하세요",
+            message=t("issue_freshness"),
+            recommendation=t("issue_freshness_rec"),
         ))
 
     return issues
@@ -123,12 +124,12 @@ def _generate_issues(env, profile: Profile, scores: dict) -> list[Issue]:
 
 @click.group(invoke_without_command=True)
 @click.version_option(__version__, "--version", "-V", message="agentscore %(version)s")
-@click.option("--profile", "profile_role", default=None, help="역할 지정 (backend/frontend/fullstack/ml/devops)")
-@click.option("--json", "output_json", is_flag=True, help="JSON으로 출력")
-@click.option("--no-color", is_flag=True, help="색상 없이 출력")
+@click.option("--profile", "profile_role", default=None, help=t("opt_profile"))
+@click.option("--json", "output_json", is_flag=True, help=t("opt_json"))
+@click.option("--no-color", is_flag=True, help=t("opt_no_color"))
 @click.pass_context
 def cli(ctx: click.Context, profile_role: str | None, output_json: bool, no_color: bool) -> None:
-    """AI 개발 환경 품질 분석 도구."""
+    """AI development environment quality analyzer."""
     if ctx.invoked_subcommand is not None:
         return
 
@@ -187,10 +188,10 @@ def cli(ctx: click.Context, profile_role: str | None, output_json: bool, no_colo
 
 
 @cli.command(name="history")
-@click.option("--limit", default=10, show_default=True, help="표시할 항목 수")
+@click.option("--limit", default=10, show_default=True, help=t("opt_limit"))
 @click.option("--no-color", is_flag=True)
 def history_cmd(limit: int, no_color: bool) -> None:
-    """점수 추이를 조회합니다."""
+    """Show score history."""
     records = list_history(limit=limit)
     print_history(records, no_color=no_color)
 
@@ -199,17 +200,17 @@ def history_cmd(limit: int, no_color: bool) -> None:
 @click.argument("date", required=False, default=None)
 @click.option("--no-color", is_flag=True)
 def diff(date: str | None, no_color: bool) -> None:
-    """특정 시점 대비 현재 점수를 비교합니다."""
+    """Compare current score against a previous snapshot."""
     records = list_history(limit=2)
 
     if len(records) < 2 and date is None:
-        click.echo("비교할 히스토리가 부족합니다. agentscore를 한 번 더 실행한 뒤 시도하세요.")
+        click.echo(t("diff_not_enough"))
         return
 
     if date:
         before = load_by_date(date)
         if not before:
-            click.echo(f"날짜 {date}에 해당하는 히스토리를 찾을 수 없습니다.")
+            click.echo(t("diff_not_found", date=date))
             return
         after = records[0]
     else:
@@ -221,33 +222,30 @@ def diff(date: str | None, no_color: bool) -> None:
 
 
 @cli.command()
-@click.option("--profile", "profile_role", default=None,
-              help=f"역할 지정 ({'/'.join(sorted(VALID_ROLES - {'generic'}))})")
+@click.option("--profile", "profile_role", default=None, help=t("opt_profile"))
 @click.option("--no-color", is_flag=True)
 def setup(profile_role: str | None, no_color: bool) -> None:
-    """프로필을 설정하고 저장합니다."""
-    console_kwargs = {"no_color": no_color}
-
+    """Configure and save your profile."""
     if not profile_role:
-        click.echo("역할을 선택하세요:")
+        click.echo(t("setup_select_role"))
         roles = sorted(VALID_ROLES - {"generic"})
         for i, r in enumerate(roles, 1):
             click.echo(f"  {i}. {r}")
-        choice = click.prompt("번호 입력", type=click.IntRange(1, len(roles)))
+        choice = click.prompt(t("setup_prompt"), type=click.IntRange(1, len(roles)))
         profile_role = roles[choice - 1]
 
     profile = make_profile(profile_role, tier=1)
     save_config(profile)
-    click.echo(f"프로필 저장 완료: {profile_role} (~/.agentscore/config.json)")
+    click.echo(t("setup_saved", role=profile_role))
 
 
 @cli.command()
 @click.argument("github_url")
-@click.option("--profile", "profile_role", default=None, help="역할 지정")
-@click.option("--json", "output_json", is_flag=True, help="JSON으로 출력")
-@click.option("--no-color", is_flag=True, help="색상 없이 출력")
+@click.option("--profile", "profile_role", default=None, help=t("opt_profile"))
+@click.option("--json", "output_json", is_flag=True, help=t("opt_json"))
+@click.option("--no-color", is_flag=True, help=t("opt_no_color"))
 def check(github_url: str, profile_role: str | None, output_json: bool, no_color: bool) -> None:
-    """새 도구를 설치하기 전 영향을 시뮬레이션합니다."""
+    """Simulate the impact of installing a new tool."""
     import sys
 
     env = read_env_snapshot()
@@ -257,10 +255,10 @@ def check(github_url: str, profile_role: str | None, output_json: bool, no_color
     profile = make_profile(profile_role, tier=1) if profile_role else detect_profile()
 
     try:
-        click.echo(f"  {github_url} 분석 중...", err=True)
+        click.echo(t("check_analyzing", url=github_url), err=True)
         info = fetch_repo_info(github_url)
     except Exception as e:
-        click.echo(f"오류: GitHub 데이터를 가져올 수 없습니다 — {e}", err=True)
+        click.echo(t("check_error", err=e), err=True)
         sys.exit(1)
 
     classified = classify_tool(info)
