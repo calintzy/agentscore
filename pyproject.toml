@@ -26,8 +26,8 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/yourusername/agentscore"
-Issues = "https://github.com/yourusername/agentscore/issues"
+Homepage = "https://github.com/calintzy/agentscore"
+Issues = "https://github.com/calintzy/agentscore/issues"
 
 [project.scripts]
 agentscore = "agentscore.cli:cli"
