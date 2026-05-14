@@ -110,18 +110,25 @@ def _estimate_context_cost(info: RepoInfo, tool_type: str) -> str:
     return "low"
 
 
+_SINGLE_HIT_CAPS = {"documentation", "infra", "data", "memory"}
+
 def _infer_provides(info: RepoInfo) -> list[str]:
+    # description+topics은 신뢰도 높으므로 가중치 부여 (두 번 포함)
     text = " ".join([
         info.repo,
         info.description,
-        info.readme[:3000],
-        info.claude_md[:1000],
+        info.description,
         " ".join(info.topics),
+        " ".join(info.topics),
+        info.readme[:2000],
+        info.claude_md[:500],
     ]).lower()
 
     found: list[str] = []
     for cap, keywords in _PROVIDES_KEYWORDS.items():
-        if any(kw in text for kw in keywords):
+        hits = sum(1 for kw in keywords if kw in text)
+        threshold = 1 if cap in _SINGLE_HIT_CAPS else 2
+        if hits >= threshold:
             found.append(cap)
 
     return found[:6]
