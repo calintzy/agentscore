@@ -51,15 +51,7 @@ DIMENSION_MAX = {
 BAR_WIDTH = 16
 
 
-def _generate_tips(result: ScanResult) -> list[str]:
-    tip_map = {
-        "context_efficiency": t("tip_context_efficiency"),
-        "coverage":           t("tip_coverage"),
-        "conflict":           t("tip_conflict"),
-        "config_quality":     t("tip_config_quality"),
-        "security":           t("tip_security"),
-        "freshness":          t("tip_freshness"),
-    }
+def _generate_tips(result: ScanResult, tools: list[Tool] | None = None) -> list[str]:
     ranked = sorted(
         DIMENSION_MAX.keys(),
         key=lambda d: result.scores.get(d, 0.0) / DIMENSION_MAX[d],
@@ -69,10 +61,30 @@ def _generate_tips(result: ScanResult) -> list[str]:
         ratio = result.scores.get(dim, 0.0) / DIMENSION_MAX[dim]
         if ratio >= 0.85:
             continue
-        tips.append(tip_map[dim])
+        tip = _specific_tip(dim, result, tools)
+        if tip:
+            tips.append(tip)
         if len(tips) == 3:
             break
     return tips
+
+
+def _specific_tip(dim: str, result: ScanResult, tools: list[Tool] | None) -> str:
+    if dim == "context_efficiency" and tools:
+        heavy = [t.display_name for t in tools if t.context_cost == "high"]
+        if heavy:
+            names = " · ".join(heavy)
+            return t("tip_context_efficiency_specific", names=names)
+        return t("tip_context_efficiency")
+
+    if dim == "conflict" and result.conflicts:
+        worst = max(result.conflicts, key=lambda c: len(c.tools))
+        names = " · ".join(tool.display_name for tool in worst.tools)
+        return t("tip_conflict_specific", category=worst.category, names=names)
+    if dim == "conflict":
+        return t("tip_conflict")
+
+    return t(f"tip_{dim}")
 
 
 def _bar(score: float, max_score: float) -> str:
@@ -108,7 +120,7 @@ def print_scan_result(env: EnvSnapshot, tools: list[Tool], *, no_color: bool = F
     _print_tools_table(console, tools)
 
 
-def print_score_result(result: ScanResult, *, no_color: bool = False) -> None:
+def print_score_result(result: ScanResult, *, tools: list[Tool] | None = None, no_color: bool = False) -> None:
     console = Console(no_color=no_color, highlight=False)
     grade = result.grade
     color = GRADE_COLOR.get(grade, "white")
@@ -148,7 +160,7 @@ def print_score_result(result: ScanResult, *, no_color: bool = False) -> None:
                 console.print(f"       [dim]→ {issue.recommendation}[/dim]", highlight=False, soft_wrap=True)
         console.print()
 
-    tips = _generate_tips(result)
+    tips = _generate_tips(result, tools=tools)
     if tips:
         console.print(Rule(t("terminal_tips"), style="dim", align="left"))
         for i, tip in enumerate(tips, 1):

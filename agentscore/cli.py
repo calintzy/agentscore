@@ -209,7 +209,7 @@ def cli(ctx: click.Context, profile_role: str | None, output_json: bool, no_colo
         return
 
     print_scan_result(env, tools, no_color=no_color)
-    print_score_result(result, no_color=no_color)
+    print_score_result(result, tools=tools, no_color=no_color)
 
 
 @cli.command(name="history")
